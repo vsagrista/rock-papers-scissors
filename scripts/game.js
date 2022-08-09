@@ -40,7 +40,7 @@ function fightSelections() {
 
     document.getElementById('input-1').remove()
 
-    appendToHtml("p", `p2-${round}`, `computer: ${computerPoints} - ${userPoints} :user`, "game-box");
+    appendToHtml("p", `p2-${round}`, `computer: ${computerPoints} - ${userPoints} :user`, "game-box-content");
     round++;
 }
 
@@ -53,17 +53,19 @@ function appendToHtml(type, id, content, parent) {
 }
 
 function clearConsole() {
-    document.getElementById("game-box").innerHTML = "";
+    document.getElementById("game-box-content").innerHTML = "";
 }
 
 function runGame() {
-    if(round === 5) {
-        clearConsole();
-    }
+    clearConsole();
     
-    appendToHtml("p", `p3-${round}`, `----------------------- ROUND ${round} ----------------------`, "game-box");
-    appendToHtml("p", `p-${round}`, gamePrompt, "game-box");
-    appendToHtml("input", "input-1", null, "game-box");
+
+    appendToHtml("p", `p3-${round}`, `----------------------- ROUND ${round} ----------------------`, "game-box-content");
+    appendToHtml("p", `p-${round}`, gamePrompt, "game-box-content");
+    appendToHtml("input", "input-1", null, "game-box-content");
+
+
+
     // hook event to the input
     let currentInput = document.getElementById("input-1");
     currentInput.addEventListener("keydown", function (e) {

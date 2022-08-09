@@ -1,17 +1,22 @@
 const options = ["Rock", "Paper", "Scissors"];
+const gamePrompt = "> Paper, rock, scissors! Please, enter your choice:"
 let computerSelection, userSelection;
 let computerPoints = 0;
 let userPoints = 0;
 let round = 1;
+
 
 function getComputerSelection() {
     let randomNum = Math.floor(Math.random() * 3);
     return options[randomNum].toLowerCase();
 }
 
-function getUserInput() {
-    return prompt(`Rock, paper, scicssors? - ROUND: ${round}`).toLowerCase();
+
+function getUserInput(e) {
+    let choice = e.target.value;
+    return choice;
 }
+
 
 function fightSelections() {   
     console.log(`computerSelection: ${computerSelection}`);
@@ -32,6 +37,38 @@ function fightSelections() {
     } else {  
         console.log("Ups, that was a draw")
     }
+
+    document.getElementById('input-1').remove()
+
+    appendToHtml("p", `p2-${round}`, `computer: ${computerPoints} - ${userPoints} :user`, "game-box");
+    appendToHtml("p", `p3-${round}`, "-------------------------------------------------", "game-box");
+    round++;
+}
+
+
+function appendToHtml(type, id, content, parent) {
+    let item = document.createElement(`${type}`);
+    item.id = id;
+    item.textContent = type === "input" ? null : content;
+    document.getElementById(parent).appendChild(item)
+}
+
+
+function runGame() {
+    appendToHtml("p", `p-${round}`, gamePrompt, "game-box");
+    appendToHtml("input", "input-1", null, "game-box");
+    // hook event to the input
+    let currentInput = document.getElementById("input-1");
+    currentInput.addEventListener("keydown", function (e) {
+        if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
+            userSelection = getUserInput(e);
+            computerSelection = getComputerSelection();
+            fightSelections();
+            if(round < 6) {
+                runGame();
+            }
+        }
+    });
 }
 
 
@@ -43,15 +80,4 @@ function printChampion() {
     }
 }
 
-/*
-for(var i = 0; i < 5; i++) {
-    computerSelection = getComputerSelection();
-    userSelection = getUserInput();
-    fightSelections();
-    console.log(`computer: ${computerPoints} - ${userPoints} :user`);
-    console.log("-------------------------------------------------");
-    round++;
-}
-
-printChampion();
-*/
+runGame();

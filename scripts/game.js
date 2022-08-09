@@ -43,7 +43,7 @@ function printChampion() {
     }
 }
 
-
+/*
 for(var i = 0; i < 5; i++) {
     computerSelection = getComputerSelection();
     userSelection = getUserInput();
@@ -54,3 +54,4 @@ for(var i = 0; i < 5; i++) {
 }
 
 printChampion();
+*/

@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+}
+
+.container, html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Alfa Slab One', cursive;
+    color: #4fab6d;
+}
+.game-box {
+    background: #041208;
+    border: 1px solid green;
+    padding: 25px;
+    width: 80%;
+    height: 80%;
+    border-radius: 25px;
+}
+
+.pc-base-top, .pc-base-bottom {
+    display: block;
+    background: #041208;
+}
+
+.pc-base-top {
+    height: 80px;
+    width: 70px;
+}
+.pc-base-bottom {
+    height: 20px;
+    width: 180px;
+}

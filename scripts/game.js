@@ -41,7 +41,6 @@ function fightSelections() {
     document.getElementById('input-1').remove()
 
     appendToHtml("p", `p2-${round}`, `computer: ${computerPoints} - ${userPoints} :user`, "game-box");
-    appendToHtml("p", `p3-${round}`, "-------------------------------------------------", "game-box");
     round++;
 }
 
@@ -53,8 +52,16 @@ function appendToHtml(type, id, content, parent) {
     document.getElementById(parent).appendChild(item)
 }
 
+function clearConsole() {
+    document.getElementById("game-box").innerHTML = "";
+}
 
 function runGame() {
+    if(round === 5) {
+        clearConsole();
+    }
+    
+    appendToHtml("p", `p3-${round}`, `----------------------- ROUND ${round} ----------------------`, "game-box");
     appendToHtml("p", `p-${round}`, gamePrompt, "game-box");
     appendToHtml("input", "input-1", null, "game-box");
     // hook event to the input

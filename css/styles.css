@@ -50,6 +50,14 @@ input:focus {
     box-shadow: none;
 }
 
+.highlight-all {
+    color: orange;
+}
+
+.highlight {
+    background: red;
+}
+
 
 .pc-base-top, .pc-base-bottom {
     display: block;

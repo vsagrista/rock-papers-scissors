@@ -3,6 +3,7 @@ const gamePrompt = "> Rock, paper, scissors! Please, enter your choice:"
 let computerSelection, userSelection;
 let computerPoints = 0;
 let userPoints = 0;
+let pointsWinner = "";
 let round = 1;
 
 
@@ -23,18 +24,25 @@ function fightSelections() {
     console.log(`userSelection: ${userSelection}`);
 
     if (computerSelection === "rock" && userSelection === "scissors") {
+        pointsWinner = "computer"
         computerPoints++;
     } else if (computerSelection === "paper" && userSelection === "rock") {
+        pointsWinner = "computer"
         computerPoints++;
     } else if (computerSelection === "scissors" && userSelection === "paper") {
+        pointsWinner = "computer"
         computerPoints++;
     } else if (computerSelection === "scissors" && userSelection === "rock") {
+        pointsWinner = "user"
         userPoints++;
     } else if (computerSelection === "rock" && userSelection === "paper") {
+        pointsWinner = "user"
         userPoints++;
     } else if (computerSelection === "paper" && userSelection === "scissors") {
+        pointsWinner = "user"
         userPoints++;
     } else {  
+        pointsWinner = ""
         console.log("Ups, that was a draw")
     }
 
@@ -47,6 +55,33 @@ function fightSelections() {
 function updateScore() {
     document.getElementById("computerPoints").textContent = computerPoints;
     document.getElementById("userPoints").textContent = userPoints;
+
+    if(pointsWinner === "computer") {
+        flashSpan("computerPoints");
+    } else if (pointsWinner === "user") {
+        flashSpan("userPoints");
+    } else {
+        flashSpan("scores-board-inner", "draw");
+    }
+}
+
+function flashSpan(itemToHighlight, isDraw) {
+
+    if(isDraw) {
+        document.getElementById(itemToHighlight).classList.add("highlight-all");
+   
+        setTimeout(() => {
+            document.getElementById(itemToHighlight).classList.remove("highlight-all");
+        }, 1000);
+    } else {
+        document.getElementById(itemToHighlight).classList.add("highlight");
+   
+        setTimeout(() => {
+            document.getElementById(itemToHighlight).classList.remove("highlight");
+        }, 1000);
+    }
+
+    
 }
 
 function printSuggestion() {
@@ -89,7 +124,7 @@ function runGame() {
             userSelection = getUserInput(e);
             computerSelection = getComputerSelection();
 
-            console.log("validation: ", validate(userSelection, computerSelection));
+            //console.log("validation: ", validate(userSelection, computerSelection));
             
             if(validate(userSelection, computerSelection)) {
                 fightSelections();

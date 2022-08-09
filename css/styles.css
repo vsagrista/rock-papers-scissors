@@ -42,6 +42,7 @@ input {
     color: #4fab6d;
     border-bottom: 1px solid;
     font-family: 'Space Mono';
+    font-size: inherit;
 }
 
 input:focus {

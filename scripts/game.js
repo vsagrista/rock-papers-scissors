@@ -40,8 +40,14 @@ function fightSelections() {
 
     document.getElementById('input-1').remove()
 
-    appendToHtml("p", `p2-${round}`, `computer: ${computerPoints} - ${userPoints} :user`, "game-box-content");
+    //appendToHtml("p", `p2-${round}`, `computer: ${computerPoints} - ${userPoints} :user`, "game-box-content");
+    updateScore();
     round++;
+}
+
+function updateScore() {
+    document.getElementById("computerPoints").textContent = computerPoints;
+    document.getElementById("userPoints").textContent = userPoints;
 }
 
 

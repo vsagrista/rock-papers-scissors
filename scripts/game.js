@@ -24,30 +24,29 @@ function fightSelections() {
     console.log(`userSelection: ${userSelection}`);
 
     if (computerSelection === "rock" && userSelection === "scissors") {
-        pointsWinner = "computer"
+        pointsWinner = "computer";
         computerPoints++;
     } else if (computerSelection === "paper" && userSelection === "rock") {
-        pointsWinner = "computer"
+        pointsWinner = "computer";
         computerPoints++;
     } else if (computerSelection === "scissors" && userSelection === "paper") {
-        pointsWinner = "computer"
+        pointsWinner = "computer";
         computerPoints++;
     } else if (computerSelection === "scissors" && userSelection === "rock") {
-        pointsWinner = "user"
+        pointsWinner = "user";
         userPoints++;
     } else if (computerSelection === "rock" && userSelection === "paper") {
-        pointsWinner = "user"
+        pointsWinner = "user";
         userPoints++;
     } else if (computerSelection === "paper" && userSelection === "scissors") {
-        pointsWinner = "user"
+        pointsWinner = "user";
         userPoints++;
     } else {  
         pointsWinner = ""
         console.log("Ups, that was a draw")
     }
 
-    document.getElementById('input-1').remove()
-
+    clearContent("input-1");
     updateScore();
     round++;
 }
@@ -57,31 +56,20 @@ function updateScore() {
     document.getElementById("userPoints").textContent = userPoints;
 
     if(pointsWinner === "computer") {
-        flashSpan("computerPoints");
+        flashScore("computerPoints", "highlight");
     } else if (pointsWinner === "user") {
-        flashSpan("userPoints");
+        flashScore("userPoints", "highlight");
     } else {
-        flashSpan("scores-board-inner", "draw");
+        flashScore("scores-board-inner", "highlight-all");
     }
 }
 
-function flashSpan(itemToHighlight, isDraw) {
-
-    if(isDraw) {
-        document.getElementById(itemToHighlight).classList.add("highlight-all");
+function flashScore(itemToHighlight, className) {
+    document.getElementById(itemToHighlight).classList.add(className);
    
-        setTimeout(() => {
-            document.getElementById(itemToHighlight).classList.remove("highlight-all");
-        }, 1000);
-    } else {
-        document.getElementById(itemToHighlight).classList.add("highlight");
-   
-        setTimeout(() => {
-            document.getElementById(itemToHighlight).classList.remove("highlight");
-        }, 1000);
-    }
-
-    
+    setTimeout(() => {
+        document.getElementById(itemToHighlight).classList.remove(className);
+    }, 1000);
 }
 
 function printSuggestion() {
@@ -99,23 +87,21 @@ function appendToHtml(type, id, content, parent) {
     document.getElementById(parent).appendChild(item)
 }
 
-function clearConsole() {
-    document.getElementById("game-box-content").innerHTML = "";
+function clearContent(id) {
+    document.getElementById(id).innerHTML = "";
 }
 
-function validate(userSelection, computerSelection) {
-    return options.indexOf(userSelection.toLowerCase()) > -1 && options.indexOf(computerSelection.toLowerCase()) > -1;
+function validateUserInput(userSelection) {
+    return options.indexOf(userSelection.toLowerCase()) > -1;
 }
 
+ 
 function runGame() {
-    clearConsole();
-    
+    clearContent("game-box-content");    
 
     appendToHtml("p", `p3-${round}`, `----------------------- ROUND ${round} ----------------------`, "game-box-content");
     appendToHtml("p", `p-${round}`, gamePrompt, "game-box-content");
     appendToHtml("input", "input-1", null, "game-box-content");
-
-
 
     // hook event to the input
     let currentInput = document.getElementById("input-1");
@@ -123,15 +109,13 @@ function runGame() {
         if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
             userSelection = getUserInput(e);
             computerSelection = getComputerSelection();
-
-            //console.log("validation: ", validate(userSelection, computerSelection));
             
-            if(validate(userSelection, computerSelection)) {
+            if(validateUserInput(userSelection)) {
                 fightSelections();
                 if(round < 6) {
                     runGame();
                 } else {
-                    clearConsole();
+                    clearContent("game-box-content");
                     printChampion();
                 }
             } else {
@@ -140,7 +124,6 @@ function runGame() {
         }
     });
 }
-
 
 function printChampion() {
     if(computerPoints > userPoints) {

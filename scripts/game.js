@@ -12,12 +12,10 @@ function getComputerSelection() {
     return options[randomNum];
 }
 
-
 function getUserInput(e) {
     let choice = e.target.value;
     return choice;
 }
-
 
 function fightSelections() {   
     console.log(`computerSelection: ${computerSelection}`);
@@ -53,30 +51,34 @@ function fightSelections() {
 }
 
 function updateScore() {
-    changeText("computerPoints", computerPoints);
-    changeText("userPoints",userPoints);
+    changeText("computer-points", computerPoints);
+    changeText("user-points",userPoints);
 
     if(pointsWinner === "computer") {
-        flashScore("computerPoints", "highlight");
+        flashScore("computer-points", "highlight");
     } else if (pointsWinner === "user") {
-        flashScore("userPoints", "highlight");
+        flashScore("user-points", "highlight");
     } else {
-        flashScore("scores-board-inner", "highlight-all");
+        flashScore("scores-board-all", "highlight-all");
     }
+}
+
+function flashScore(itemToHighlight, className) {
+    console.log("adding class to: ", itemToHighlight);
+    console.log("className: ", className);
+
+    document.getElementById(itemToHighlight).classList.add(className);
+    document.getElementById(`show-winner-${itemToHighlight}`).classList.add(className);
+   
+    setTimeout(() => {
+        document.getElementById(itemToHighlight).classList.remove(className);
+        document.getElementById(`show-winner-${itemToHighlight}`).classList.remove(className);
+    }, 1000);
 }
 
 function changeText(id, text) {
     document.getElementById(id).textContent = text;
 }
-
-function flashScore(itemToHighlight, className) {
-    document.getElementById(itemToHighlight).classList.add(className);
-   
-    setTimeout(() => {
-        document.getElementById(itemToHighlight).classList.remove(className);
-    }, 1000);
-}
-
 
 // refactor this
 function printSuggestion() {
@@ -85,7 +87,6 @@ function printSuggestion() {
     }
     appendToHtml("p", `error-msg`, `Please, type 'rock', 'paper' or 'scissors'`, "game-box-content");
 }
-
 
 function appendToHtml(type, id, content, parent) {
     let item = document.createElement(`${type}`);
@@ -118,8 +119,17 @@ function delayAction(player, ms, action, icon) {
         }
     }, ms);
 }
+
 function changeIcon(player, icon) {
     document.getElementById(`flash-winner-box-${player}`).src = `./img/${icon}.png`;
+}
+
+function printChampion() {
+    if(computerPoints > userPoints) {
+        console.log("---> Computer won!!")
+    } else {
+        console.log("---> User won!!")
+    }
 }
 
 // manageGameFlow
@@ -131,36 +141,21 @@ function runGame() {
     let currentInput = document.getElementById("input-1");
     currentInput.addEventListener("keydown", function (e) {
         if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
+
             userSelection = getUserInput(e);
             computerSelection = getComputerSelection();
 
             changeIcon("user", userSelection);
-            delayAction("computer",1000, "changeIcon", computerSelection);
-            delayAction("computer",3000, "changeIcon", "question-mark");
+            changeIcon("computer", computerSelection);
+
+            delayAction("computer",4000, "changeIcon", "question-mark");
         
 
-            
             if(validateUserInput(userSelection)) {
-                    fightSelections();
-                    if(round < 6) {
-                        runGame();
-                    } else {
-                        clearContent("game-box-content");
-                        printChampion();
-                    }
-            } else {
-                printSuggestion();
+                fightSelections();
             }
         }
     });
-}
-
-function printChampion() {
-    if(computerPoints > userPoints) {
-        console.log("---> Computer won!!")
-    } else {
-        console.log("---> User won!!")
-    }
 }
 
 runGame();

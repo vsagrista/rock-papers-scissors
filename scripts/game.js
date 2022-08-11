@@ -49,11 +49,12 @@ function fightSelections() {
     clearContent("input-1");
     updateScore();
     round++;
+    changeText("round-number", round);
 }
 
 function updateScore() {
-    document.getElementById("computerPoints").textContent = computerPoints;
-    document.getElementById("userPoints").textContent = userPoints;
+    changeText("computerPoints", computerPoints);
+    changeText("userPoints",userPoints);
 
     if(pointsWinner === "computer") {
         flashScore("computerPoints", "highlight");
@@ -64,6 +65,10 @@ function updateScore() {
     }
 }
 
+function changeText(id, text) {
+    document.getElementById(id).textContent = text;
+}
+
 function flashScore(itemToHighlight, className) {
     document.getElementById(itemToHighlight).classList.add(className);
    
@@ -72,6 +77,8 @@ function flashScore(itemToHighlight, className) {
     }, 1000);
 }
 
+
+// refactor this
 function printSuggestion() {
     if(document.getElementById('error-msg')) {
         document.getElementById('error-msg').remove();
@@ -95,21 +102,31 @@ function validateUserInput(userSelection) {
     return options.indexOf(userSelection.toLowerCase()) > -1;
 }
 
-function highlightRoundPanel(player) {
-    document.getElementById(`flash-winner-box-inner-${player}`).classList.add("font-resize");
-    setTimeout(() => {
-        document.getElementById(`flash-winner-box-inner-${player}`).classList.remove("font-resize");
-    }, 200);
+// refactor this
+function addClass(id, className) {
+    document.getElementById(id).classList.add(className);
 }
+
+function removeClass(id, className) {
+    document.getElementById(id).classList.remove(className);
+}
+
+function delayAction(player, ms, action, icon) {
+    setTimeout(() => {
+        if(action === "changeIcon"){
+            changeIcon(player, icon);
+        }
+    }, ms);
+}
+function changeIcon(player, icon) {
+    document.getElementById(`flash-winner-box-${player}`).src = `./img/${icon}.png`;
+}
+
+// manageGameFlow
 
  
 function runGame() {
-    clearContent("game-box-content");    
-
-    appendToHtml("p", `p3-${round}`, `----------------------- ROUND ${round} ----------------------`, "game-box-content");
-    appendToHtml("p", `p-${round}`, gamePrompt, "game-box-content");
-    appendToHtml("input", "input-1", null, "game-box-content");
-
+    
     // hook event to the input
     let currentInput = document.getElementById("input-1");
     currentInput.addEventListener("keydown", function (e) {
@@ -117,7 +134,11 @@ function runGame() {
             userSelection = getUserInput(e);
             computerSelection = getComputerSelection();
 
-            highlightRoundPanel("user");
+            changeIcon("user", userSelection);
+            delayAction("computer",1000, "changeIcon", computerSelection);
+            delayAction("computer",3000, "changeIcon", "question-mark");
+        
+
             
             if(validateUserInput(userSelection)) {
                     fightSelections();

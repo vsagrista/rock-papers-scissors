@@ -64,6 +64,14 @@ input:focus {
     background: red;
 }
 
+.hidden {
+    display: none;
+}
+
+.flash-winner-box-container {
+    padding: 0 40px;
+}
+
 .flash-winner-box {
     margin-top: 30px;
     background: #4fab6d;
@@ -73,7 +81,6 @@ input:focus {
     gap: 50px;
     align-items: center;
     color: black;
-    padding: 20px;
 }
 
 .flash-winner-box-inner {
@@ -81,16 +88,12 @@ input:focus {
     justify-content: center;
     align-items: center;
     width: 80%;
+    font-size: 20px;
 }
 
 .card-icon {
     width: 40px;
 }
-
-.font-resize {
-    font-size: 20px;
-}
-
 
 .pc-base-top, .pc-base-bottom {
     display: block;

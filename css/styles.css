@@ -36,6 +36,12 @@
     border-radius: 25px;
 }
 
+@media only screen and (min-width: 950px) {
+    .game-box-content {
+        padding: 0 40px;
+    }
+}
+
 input {
     background: transparent;
     border: 0;
@@ -56,6 +62,29 @@ input:focus {
 
 .highlight {
     background: red;
+}
+
+.flash-winner-box {
+    margin-top: 30px;
+    background: #4fab6d;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    align-items: center;
+    color: black;
+    padding: 20px;
+}
+
+.flash-winner-box-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+}
+
+.card-icon {
+    width: 40px;
 }
 
 

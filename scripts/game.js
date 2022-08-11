@@ -72,21 +72,20 @@ function manageScore() {
 
     if (pointsWinner === "user") {
         printWarning("user");
-        flashScore("user-points", "highlight");
+        flashScore("user-points", "highlight", true);
         flashScore("show-winner-scores-board-all", "blue-background");
     } else if(pointsWinner === "computer") {
         printWarning("computer");
-        flashScore("computer-points", "highlight");
+        flashScore("computer-points", "highlight", true);
         flashScore("show-winner-scores-board-all", "red-background");
     } else {
         printWarning("draw");
-        flashScore("scores-board-all", "highlight-all");
+        flashScore("scores-board-all", "highlight-all", true);
         flashScore("show-winner-scores-board-all", "orange-background");
     }
 }
 
-function flashScore(itemToHighlight, className) {
-    
+function flashScore(itemToHighlight, className, repaint) {
     document.getElementById(itemToHighlight).classList.add(className);
    
     setTimeout(() => {
@@ -121,9 +120,30 @@ function delayAction(player, ms, action, icon) {
 function changeIcon(player, icon) {
     document.getElementById(`flash-winner-box-${player}`).src = `./img/${icon}.png`;
 }
+
+function getPlayersCards() {
+
+    userSelection = this.value;
+    computerSelection = getComputerSelection();
+
+    changeIcon("user", userSelection);
+    changeIcon("computer", computerSelection);
+
+    faceOpponentCards();
+}
  
 function runGame() {
-    
+
+    document.getElementById("action-button-1").addEventListener("click", getPlayersCards);
+    document.getElementById("action-button-2").addEventListener("click", getPlayersCards);
+    document.getElementById("action-button-3").addEventListener("click", getPlayersCards);
+
+}
+
+runGame();
+
+/*  input version (original game assignment)
+
     let currentInput = document.getElementById("input-1");
     currentInput.addEventListener("keydown", function (e) {
         if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
@@ -144,6 +164,4 @@ function runGame() {
             }
         }
     });
-}
-
-runGame();
+    */

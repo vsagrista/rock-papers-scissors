@@ -24,7 +24,7 @@
   <div class="container">
     <div class="game-box" id="game-box">
         <div id="scores-board" class="scores-board">
-            <div id="scores-board-all">Computer: <span id="computer-points">0</span> - <span id="user-points">0</span> :User</div>
+            <div id="scores-board-all">You: <span id="user-points">0</span> - <span id="computer-points">0</span> :Computer</div>
         </div>
         
         <div id="game-box-content" class="game-box-content"> 
@@ -32,16 +32,16 @@
             <p id="p-4">> Rock, paper, scissors! Please, click on one:</p>
             <!--<input id="input-1">-->
             <div class="buttons-area">
-                <button><img src="./img/rock.png" alt=""></button>
-                <button><img src="./img/paper.png" alt=""></button>
-                <button><img src="./img/scissors.png" alt=""></button>
+                <button class="action-button" id="action-button-1" value="rock"><img src="./img/rock.png" alt=""></button>
+                <button class="action-button" id="action-button-2" value="paper"><img src="./img/paper.png" alt=""></button>
+                <button class="action-button" id="action-button-3" value="scissors"><img src="./img/scissors.png" alt=""></button>
             </div>
         </div>
 
         <div id="flash-winner-box-container" class="flash-winner-box-container">
             <div id="show-winner-scores-board-all" class="flash-winner-box flash-winner-box-main">
                 <div id="flash-winner-box-inner-user" class="flash-winner-box-inner">
-                    <span id="show-winner-user-points">User:</span> <img id="flash-winner-box-user" class="card-icon" alt="user card choice" src="./img/question-mark.png">
+                    <span id="show-winner-user-points">You:</span> <img id="flash-winner-box-user" class="card-icon" alt="user card choice" src="./img/question-mark.png">
                 </div>
                 <div id="flash-winner-box-inner-versus" class="flash-winner-box-inner">
                     <span> VS</span>

@@ -36,12 +36,6 @@
     border-radius: 25px;
 }
 
-@media only screen and (min-width: 950px) {
-    .game-box-content {
-        padding: 0 40px;
-    }
-}
-
 input {
     background: transparent;
     border: 0;
@@ -125,4 +119,41 @@ input:focus {
 .pc-base-bottom {
     height: 20px;
     width: 180px;
+}
+
+.buttons-area {
+    display: flex;
+    justify-content: center;
+    gap:20px;
+}
+
+.buttons-area img {
+    width: 100px;
+    background: transparent;
+    cursor: pointer;
+}
+
+
+@media only screen and (min-width: 950px) {
+    .game-box-content {
+        padding: 0 40px;
+    }
+}
+
+@media only screen and (max-width: 950px) {
+    .flash-winner-box {
+        display: flex;
+    }
+
+    .flash-winner-box-container {
+        padding: 0;
+    }
+
+    .flash-winner-box-main {
+        justify-content: space-around;
+    }
+
+    .flash-winner-box-inner {
+        font-size: inherit;
+    }
 }

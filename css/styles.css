@@ -87,6 +87,10 @@ input:focus {
     width: 40px;
 }
 
+.font-resize {
+    font-size: 20px;
+}
+
 
 .pc-base-top, .pc-base-bottom {
     display: block;

@@ -95,6 +95,13 @@ function validateUserInput(userSelection) {
     return options.indexOf(userSelection.toLowerCase()) > -1;
 }
 
+function highlightRoundPanel(player) {
+    document.getElementById(`flash-winner-box-inner-${player}`).classList.add("font-resize");
+    setTimeout(() => {
+        document.getElementById(`flash-winner-box-inner-${player}`).classList.remove("font-resize");
+    }, 200);
+}
+
  
 function runGame() {
     clearContent("game-box-content");    
@@ -109,15 +116,17 @@ function runGame() {
         if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
             userSelection = getUserInput(e);
             computerSelection = getComputerSelection();
+
+            highlightRoundPanel("user");
             
             if(validateUserInput(userSelection)) {
-                fightSelections();
-                if(round < 6) {
-                    runGame();
-                } else {
-                    clearContent("game-box-content");
-                    printChampion();
-                }
+                    fightSelections();
+                    if(round < 6) {
+                        runGame();
+                    } else {
+                        clearContent("game-box-content");
+                        printChampion();
+                    }
             } else {
                 printSuggestion();
             }

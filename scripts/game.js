@@ -1,4 +1,7 @@
 const options = ["rock", "paper", "scissors"];
+const contratsText = ["Fantastic win!", "You won!", "Congrats!"];
+const lossText = ["Bummer, try again", "You lost!", "Computer gets the point!"]
+const drawText = "It's a tie!"
 const gamePrompt = "> Rock, paper, scissors! Please, enter your choice:"
 let computerSelection, userSelection;
 let computerPoints = 0;
@@ -9,7 +12,8 @@ let round = 1;
 
 function getComputerSelection() {
     let randomNum = Math.floor(Math.random() * 3);
-    return options[randomNum];
+    return "rock";
+    //return options[randomNum];
 }
 
 function getUserInput(e) {
@@ -44,35 +48,48 @@ function fightSelections() {
         console.log("Ups, that was a draw")
     }
 
-    clearContent("input-1");
-    updateScore();
+    //clearContent("input-1");
+    manageScore();
     round++;
     changeText("round-number", round);
 }
 
-function updateScore() {
+function printVictory(result) {
+    let randomNum = Math.floor(Math.random() * 3);
+    if(result === "user") {
+        changeText("print-text", contratsText[randomNum]);
+    } else if(result === "computer") {
+        changeText("print-text", lossText[randomNum]);
+    } else {
+        changeText("print-text", drawText);
+    }
+}
+
+function manageScore() {
     changeText("computer-points", computerPoints);
     changeText("user-points",userPoints);
 
-    if(pointsWinner === "computer") {
-        flashScore("computer-points", "highlight");
-    } else if (pointsWinner === "user") {
+    if (pointsWinner === "user") {
+        printVictory("user");
         flashScore("user-points", "highlight");
+        flashScore("show-winner-scores-board-all", "blue-background");
+    } else if(pointsWinner === "computer") {
+        printVictory("computer");
+        flashScore("computer-points", "highlight");
+        flashScore("show-winner-scores-board-all", "red-background");
     } else {
+        printVictory("draw");
         flashScore("scores-board-all", "highlight-all");
+        flashScore("show-winner-scores-board-all", "orange-background");
     }
 }
 
 function flashScore(itemToHighlight, className) {
-    console.log("adding class to: ", itemToHighlight);
-    console.log("className: ", className);
-
+    
     document.getElementById(itemToHighlight).classList.add(className);
-    document.getElementById(`show-winner-${itemToHighlight}`).classList.add(className);
    
     setTimeout(() => {
         document.getElementById(itemToHighlight).classList.remove(className);
-        document.getElementById(`show-winner-${itemToHighlight}`).classList.remove(className);
     }, 1000);
 }
 

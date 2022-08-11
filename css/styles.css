@@ -60,6 +60,18 @@ input:focus {
     color: orange;
 }
 
+.orange-background {
+    background: orange !important;
+}
+
+.blue-background {
+    background: blue !important;
+}
+
+.red-background {
+    background: red !important;
+}
+
 .highlight {
     background: red;
 }
@@ -89,6 +101,12 @@ input:focus {
     align-items: center;
     width: 80%;
     font-size: 20px;
+}
+
+
+.print-champion-box {
+    background: transparent;
+    color: white;
 }
 
 .card-icon {

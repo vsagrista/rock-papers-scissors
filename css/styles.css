@@ -66,7 +66,11 @@ input:focus {
     background: red !important;
 }
 
-.highlight {
+.highlight-blue {
+    background: blue;
+}
+
+.highlight-red {
     background: red;
 }
 
@@ -125,6 +129,7 @@ input:focus {
     display: flex;
     justify-content: center;
     gap:20px;
+    margin-top: 30px;
 }
 
 .buttons-area img {
@@ -155,5 +160,9 @@ input:focus {
 
     .flash-winner-box-inner {
         font-size: inherit;
+    }
+
+    .buttons-area img {
+        width: 50px;
     }
 }

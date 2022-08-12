@@ -22,8 +22,6 @@ function getUserInput(e) {
 }
 
 function faceOpponentCards() {   
-    console.log(`computerSelection: ${computerSelection}`);
-    console.log(`userSelection: ${userSelection}`);
 
     if (computerSelection === "rock" && userSelection === "scissors") {
         pointsWinner = "computer";
@@ -72,20 +70,25 @@ function manageScore() {
 
     if (pointsWinner === "user") {
         printWarning("user");
-        flashScore("user-points", "highlight", true);
+        flashScore(`action-button-${userSelection}`, "highlight-blue");
+        flashScore("user-points", "highlight-blue");
         flashScore("show-winner-scores-board-all", "blue-background");
+        flashScore("print-text", "blue-background");
     } else if(pointsWinner === "computer") {
         printWarning("computer");
-        flashScore("computer-points", "highlight", true);
+        flashScore(`action-button-${userSelection}`, "highlight-red");
+        flashScore("computer-points", "highlight-red");
         flashScore("show-winner-scores-board-all", "red-background");
+        flashScore("print-text", "red-background");
     } else {
         printWarning("draw");
-        flashScore("scores-board-all", "highlight-all", true);
+        flashScore("scores-board-all", "highlight-all");
         flashScore("show-winner-scores-board-all", "orange-background");
+        flashScore("print-text", "orange-background");
     }
 }
 
-function flashScore(itemToHighlight, className, repaint) {
+function flashScore(itemToHighlight, className) {
     document.getElementById(itemToHighlight).classList.add(className);
    
     setTimeout(() => {
@@ -95,26 +98,6 @@ function flashScore(itemToHighlight, className, repaint) {
 
 function changeText(id, text) {
     document.getElementById(id).textContent = text;
-}
-
-function validateUserInput(userSelection) {
-    return options.indexOf(userSelection.toLowerCase()) > -1;
-}
-
-function addClass(id, className) {
-    document.getElementById(id).classList.add(className);
-}
-
-function removeClass(id, className) {
-    document.getElementById(id).classList.remove(className);
-}
-
-function delayAction(player, ms, action, icon) {
-    setTimeout(() => {
-        if(action === "changeIcon"){
-            changeIcon(player, icon);
-        }
-    }, ms);
 }
 
 function changeIcon(player, icon) {
@@ -134,34 +117,9 @@ function getPlayersCards() {
  
 function runGame() {
 
-    document.getElementById("action-button-1").addEventListener("click", getPlayersCards);
-    document.getElementById("action-button-2").addEventListener("click", getPlayersCards);
-    document.getElementById("action-button-3").addEventListener("click", getPlayersCards);
-
+    document.getElementById("action-button-rock").addEventListener("click", getPlayersCards);
+    document.getElementById("action-button-paper").addEventListener("click", getPlayersCards);
+    document.getElementById("action-button-scissors").addEventListener("click", getPlayersCards);
 }
 
 runGame();
-
-/*  input version (original game assignment)
-
-    let currentInput = document.getElementById("input-1");
-    currentInput.addEventListener("keydown", function (e) {
-        if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
-
-            userSelection = getUserInput(e);
-            computerSelection = getComputerSelection();
-
-            if(validateUserInput(userSelection)) {
-                changeIcon("user", userSelection);
-                changeIcon("computer", computerSelection);
-
-                delayAction("computer",4000, "changeIcon", "question-mark");
-                delayAction("user",4000, "changeIcon", "question-mark");
-
-                faceOpponentCards();
-            } else {
-                printWarning("error");
-            }
-        }
-    });
-    */
